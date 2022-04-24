@@ -1,0 +1,55 @@
+syntax = "proto3";
+option go_package = "github.com/3n0ugh/grpc-test-sample/pb";
+
+package pb;
+
+
+service Telephone {
+    // Simple RPC
+    rpc GetContact(GetContactRequest) returns (GetContactReply) {}
+
+    // Server-Side streaming RPC
+    rpc ListContacts(ListContactsRequest) returns (stream ListContactsReply) {}
+
+    // Client-Side streaming RPC 
+    rpc RecordCallHistory(stream RecordCallHistoryRequest) returns (RecordCallHistoryReply) {}
+
+    // Bidirectional streaming RPC
+    rpc SendMessage(stream SendMessageRequest) returns (stream SendMessageReply) {}
+}
+
+message GetContactRequest {
+    string number = 1;
+}
+
+message GetContactReply {
+    string name = 1;
+    string lastname = 2;
+    string number = 3;
+}
+
+message ListContactsRequest{}
+
+message ListContactsReply {
+    string name = 1;
+    string lastname = 2;
+    string number = 3;
+}
+
+message RecordCallHistoryRequest{
+    string number = 1;
+}
+
+message RecordCallHistoryReply {
+    int32 callCount = 1;
+    // Duration of call
+    int32 elapsed_time = 2;
+}
+
+message SendMessageRequest {
+    bytes msg = 1;
+}
+
+message SendMessageReply {
+    bytes msg = 1;
+}
